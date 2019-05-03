@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <div class="jumbotron text-center">
+    <h1>Share your poems here!</h1>
+    <ul class="list.group">
+      {% for poem in poems %}
+      <li class="list-group-item">{{poem.title}}</li>
+      <p>{{poem.body}}</p>
+      {% endfor %}
+
+      <form method="POST">
+        <input name="text">
+        <input type="submit">
+      </form>
+
+{% endblock %}
