@@ -2,16 +2,20 @@
 
 {% block body %}
   <div class="jumbotron text-center">
-    <h1>Share your poems here!</h1>
+    <h1>List of poems.</h1>
     <ul class="list.group">
       {% for poem in poems %}
       <li class="list-group-item">{{poem.title}}</li>
       <p>{{poem.body}}</p>
       {% endfor %}
 
+      <br> <br> <br>
+      <p>Type your poem here! Shorter is better as brevity is an artform in itself.</p>
+      <small>(120 chars max)</small>
+
       <form method="POST">
-        <input name="text">
-        <input type="submit">
+        <input name="text" maxlength="120">
+        <button type="submit" name="text" value="bar">Enter</button>
       </form>
 
 {% endblock %}

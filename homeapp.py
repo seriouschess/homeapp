@@ -28,7 +28,7 @@ Session = sessionmaker(bind=engine)
 '''
 example1 = Poem_data()
 #example1.id = 1 adding this line causes an error.
-example1.poem_title = 'Example1'
+example1.poem_title = 'Poem Number 1'
 example1.poem_content = 'Things about kings'
 example1.poem_author = 'Johnathon Steed'
 session.add(example1)
@@ -45,8 +45,6 @@ def updatedb():
     session.close()
     return poems_list
 
-poems_list = updatedb()
-
 #FLASK
 app = Flask(__name__) #gives file a unique name. Name is randomised
 #Poems = data.Poems() OLD WAY
@@ -56,14 +54,19 @@ def home():
 
 @app.route('/poems')
 def poems():
+    poems_list = updatedb()
     return render_template('poems.html', poems = poems_list)
 
 @app.route('/poems', methods=['POST'])
 def input_poem():
+    counter = 1
     session = Session() #from sqlalchemy
     new_poem = Poem_data()
     new_poem.poem_content = request.form['text']
-    new_poem.poem_title = "Filler"
+    poems = session.query(Poem_data).all()
+    for poem in poems: #count number of poems in db to list poem number
+        counter += 1
+    new_poem.poem_title = "Poem Number {}".format(counter)
     session.add(new_poem)
     session.commit()
     session.close()
