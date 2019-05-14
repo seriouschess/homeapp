@@ -20,8 +20,8 @@ class Poem_data(Base):
     def __repr__(self):
         return "<Poem_data(poem_title='%s', poem_content='%s', poem_author='%s')>" % (self.poem_title, self.poem_content, self.poem_author)
 
-engine = create_engine('sqlite:///data.db', echo=True) #sqlite:///data.db
-
+#= os.environ.get('DATABASE_URL', 'sqlite:///data.db')
+engine = create_engine('sqlite:////var/www/html/homeapp/data.db', echo=True) #sqlite:///data.db
 Base.metadata.create_all(bind=engine) #creates the data.db
 Session = sessionmaker(bind=engine)
 
