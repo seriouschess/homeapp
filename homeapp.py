@@ -1,78 +1,43 @@
 from flask import Flask, render_template, request
-#import data
-from sqlalchemy import create_engine, Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, relationship
+from poem_model import Poem_data
+from fortyk.KnightKiller import KnightKiller
+
+app = Flask(__name__)
+#'sqlite:///data.db' for local testing
+#'sqlite:////var/www/html/homeapp/data.db' for server deployment
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////var/www/html/homeapp/data.db' #required to have postgres on the server
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #turned off to save resources. SQLAlchemy has its own tracker to match object variables to database values
+app.config['SQALCHEMY_RECORD_QUERIES'] = True #for debugging queries only
 
 
-
-#SQLALCHEMY
-Base = declarative_base() #establishes an sql database mapping so that database classes can be used.
-
-class Poem_data(Base):
-    __tablename__ = 'poem_data'
-
-    id = Column(Integer, primary_key=True)
-    poem_title = Column(String)
-    poem_content = Column(String)
-    poem_author = Column(String)
-
-    def __repr__(self):
-        return "<Poem_data(poem_title='%s', poem_content='%s', poem_author='%s')>" % (self.poem_title, self.poem_content, self.poem_author)
-
-#= os.environ.get('DATABASE_URL', 'sqlite:///data.db')
-engine = create_engine('sqlite:////var/www/html/homeapp/data.db', echo=True) #sqlite:///data.db
-Base.metadata.create_all(bind=engine) #creates the data.db
-Session = sessionmaker(bind=engine)
-
-'''
-example1 = Poem_data()
-#example1.id = 1 adding this line causes an error.
-example1.poem_title = 'Poem Number 1'
-example1.poem_content = 'Things about kings'
-example1.poem_author = 'Johnathon Steed'
-session.add(example1)
-session.commit()
-'''
-
-def updatedb():
-    session = Session()
-    poems_list = []
-    poems = session.query(Poem_data).all()
-    for poem in poems:
-        dictionary = {"id":poem.id, "title":poem.poem_title, "body":poem.poem_content, "author":poem.poem_author}
-        poems_list.append(dictionary)
-    session.close()
-    return poems_list
-
-#FLASK
-app = Flask(__name__) #gives file a unique name. Name is randomised
-#Poems = data.Poems() OLD WAY
 @app.route('/') #/ means homepage of the site
 def home():
     return render_template('home.html')
 
 @app.route('/poems')
 def poems():
-    poems_list = updatedb()
+    poems_list = Poem_data.update_list()
     return render_template('poems.html', poems = poems_list)
 
 @app.route('/poems', methods=['POST'])
 def input_poem():
-    counter = 1
-    session = Session() #from sqlalchemy
     new_poem = Poem_data()
-    new_poem.poem_content = request.form['text']
-    poems = session.query(Poem_data).all()
-    for poem in poems: #count number of poems in db to list poem number
-        counter += 1
-    new_poem.poem_title = "Poem Number {}".format(counter)
-    session.add(new_poem)
-    session.commit()
-    session.close()
-    poems_list = updatedb()
+    new_poem.poem_content = request.form['text'] #request from HTML form
+    new_poem.insertpoem()
+    poems_list = Poem_data.update_list()
     return render_template('poems.html', poems = poems_list)
 
+@app.route('/40k')
+def Test_roller():
+    return render_template('test_roller.html')
 
-if __name__ == '__main__':
-    app.run() #port5000
+@app.route('/40k', methods=['POST'])
+def calculate_attack():
+    new_attack = KnightKiller(request.form['attacker'], request.form['target'], int(request.form['hiton']))
+    (average_attacks, dmg_list) = new_attack.calculate_attack()
+    return render_template('test_roller_results.html', Average = average_attacks, damage_list=dmg_list)
+
+if __name__ == '__main__': #allows localhost testing
+    from db import db
+    db.init_app(app)
+    app.run(port = 5000, debug = True)

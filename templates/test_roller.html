@@ -1,0 +1,100 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<style type=textboxid>
+  {
+    height:200px;
+    font-size:14pt;
+  }
+</style>
+
+<style type="radio"> {
+margin-right: 20;
+}
+</style>
+
+  <div class="jumbotron text-center">
+    <h1>40k Test Roller</h1>
+
+         <p>Rapidly attack with various weapons against different targets to test their efficiency in the 40k tabletop game. <br />
+           The dice are simulated by pseudorandom number generators.</p> <br> <br>
+
+      <form method="post">
+        <fieldset>
+          <legend>Select Attacking weapon</legend>
+            Lasgun<input type="radio" name="attacker"
+          value="Lasgun">
+            Bolter Rifle<input type="radio" name="attacker"
+          value="Bolterrifle" checked>
+            Heavy Bolter<input type="radio" name="attacker"
+          value="Heavybolter">
+            Plasma Cannon (overcharge)<input type="radio" name="attacker"
+          value="Plasmacannon">
+            Auto Cannon<input type="radio" name="attacker"
+          value="Autocannon" checked>
+            Lascannon<input type="radio" name="attacker"
+          value="Lascannon">
+            Hellstrike Missiles<input type="radio" name="attacker"
+          value="Hellstrike">
+            Melta<input type="radio" name="attacker"
+          value="Melta">
+            Vanquisher<input type="radio" name="attacker"
+          value="Vanquisher">
+            Battle Cannon<input type="radio" name="attacker"
+          value="Battlecannon">
+            Demolisher Cannon<input type="radio" name="attacker"
+          value="Demolisher">
+            Baneblade Cannon<input type="radio" name="attacker"
+          value="Banebladecannon">
+        </fieldset>
+        <br> <br> <br>
+
+        <fieldset>
+          <legend>Hit roll</legend>
+            2+<input type="radio" name="hiton"
+          value=2 >
+            3+<input type="radio" name="hiton"
+          value=3>
+            4+<input type="radio" name="hiton"
+          value=4 checked>
+            5+<input type="radio" name="hiton"
+          value=5>
+            6+<input type="radio" name="hiton"
+          value=6>
+        </fieldset>
+        <br> <br> <br>
+
+        <fieldset>
+          <legend>Select Target</legend>
+          Guardsman<input type="radio" name="target"
+          value="Guardsman">
+          Space Marine<input type="radio" name="target"
+          value="Spacemarine">
+          Plague Marine<input type="radio" name="target"
+          value="Plaguemarine" >
+          Primaris Intercessor<input type="radio" name="target"
+          value="Primarisintercessor">
+          Nob<input type="radio" name="target"
+          value="Nob">
+          Armored Sentinel<input type="radio" name="target"
+          value="Sentinel">
+          Carnifex<input type="radio" name="target"
+          value="Carnifex" checked>
+          Valkyrie<input type="radio" name="target"
+          value="Valkyrie">
+          Fire Prism<input type="radio" name="target"
+          value="Fireprism">
+          Leman Russ<input type="radio" name="target"
+          value="Lemanruss">
+          Baneblade<input type="radio" name="target"
+          value="Baneblade">
+          Knight Castellan<input type="radio" name="target"
+          value="Knight Castellan">
+          Warlord Battle Titan(front)<input type="radio" name="target"
+          value="Warlordbattletitan">
+        </fieldset>
+        <br> <br>
+
+        <input type="submit" name="submit" value="Calculate">
+      </form>
+{% endblock %}
