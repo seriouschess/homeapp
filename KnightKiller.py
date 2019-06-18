@@ -1,10 +1,14 @@
-import fortyk.WP  #weapon profile classes
+#import fortyk.WP  #weapon profile classes
+import WP
 
 class KnightKiller():
     def __init__(self, attacker, target, hiton): #attacker, target is a string
         #self.attacker = fortyk.WP.weapon_suite(attacker)
-        self.weapon = fortyk.WP.weapon(attacker, hiton)
-        self.target = fortyk.WP.Target(target)
+        #self.weapon = fortyk.WP.weapon(attacker, hiton)
+        self.weapon = WP.weapon(attacker, hiton)
+        #self.target = fortyk.WP.Target(target)
+        self.target = WP.Target(target)
+        
 
     def calculate_attack(self):
         attackCount = []

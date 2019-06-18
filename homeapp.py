@@ -1,6 +1,8 @@
+import os
 from flask import Flask, render_template, request
 from poem_model import Poem_data
-from fortyk.KnightKiller import KnightKiller
+#from fortyk.KnightKiller import KnightKiller
+from KnightKiller import KnightKiller
 
 app = Flask(__name__)
 #'sqlite:///data.db' for local testing

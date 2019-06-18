@@ -184,8 +184,7 @@ class weapon():
             self.attacks = 3
         elif self.profile == "Autocannon":
             self.attacks = 2
-        elif self.profile == "Vanquisher" or self.profile == "Melta" or self.profile == "Lascannon" or self.profile == "Hellstrike"\
-                or self.profile == "Lasgun" or self.profile == "Bolterrifle":
+        elif self.profile == "Vanquisher" or self.profile == "Melta" or self.profile == "Lascannon" or self.profile == "Hellstrike" or self.profile == "Lasgun" or self.profile == "Bolterrifle":
             self.attacks = 1
         else:
             print("error: Invalid weapon profile")
