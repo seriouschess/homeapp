@@ -1,4 +1,4 @@
-from homeapp import app
+from homeapp import app as application
 from db import db
 
 db.init_app(app)

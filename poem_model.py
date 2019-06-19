@@ -23,6 +23,12 @@ class Poem_data(db.Model):
             poems_list.append(dictionary)
         return poems_list
 
+    @classmethod
+    def delete_by_id(cls, id_num):
+        mulligan = cls.query.filter_by(id=id_num).first()
+        db.session.delete(mulligan)
+        db.session.commit()
+
     def insertpoem(self): #inserts a new poem into the database with a title
         db.session.add(self)
         db.session.commit()

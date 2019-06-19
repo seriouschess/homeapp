@@ -19,17 +19,28 @@
          <p>Type your poem or quip here! Shorter is better as brevity is an artform in itself.</p>
         <small>(120 chars max)</small> <br />
 
-
-      <!--<form method="POST">
-        <input name="text" maxlength="120">
-        <button type="submit" name="text" value="bar">Enter</button>
-      </form>-->
-
       <form method="POST">
          <textarea input_type="text" name="text" maxlength="120"
          style="font-size:14pt;height:150px;width:500px">
-         </textarea> <br />
+         </textarea> <br>
         <button type="submit" name="text" value="bar">Enter</button>
+      </form>
+
+<br> <br> <br> <br>
+
+<p>You may select a poem to delete if you believe it to be terrible. Can you be trusted with such an ability?</p>
+
+<br>
+      <form method="POST">
+        <fieldset>
+          <legend>Select Poem for Deletion (if you really want to)</legend>
+          {% for poem in poems %}
+          Poem Number {{poem.id}}<input type="checkbox" name="poemid"
+        value={{poem.id}}>
+           {% endfor %}
+        </fieldset>
+
+        <input type="submit" name="poemid" value="Delete Poem" method="DELETE">
       </form>
 
 {% endblock %}

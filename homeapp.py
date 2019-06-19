@@ -11,7 +11,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////var/www/html/homeapp/data.db
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #turned off to save resources. SQLAlchemy has its own tracker to match object variables to database values
 app.config['SQALCHEMY_RECORD_QUERIES'] = True #for debugging queries only
 
-
 @app.route('/') #/ means homepage of the site
 def home():
     return render_template('home.html')
@@ -23,9 +22,16 @@ def poems():
 
 @app.route('/poems', methods=['POST'])
 def input_poem():
-    new_poem = Poem_data()
-    new_poem.poem_content = request.form['text'] #request from HTML form
-    new_poem.insertpoem()
+    try: #delete method. It's here because HTML forms aren't trusted.
+        Poem_data.delete_by_id(int(request.form['poemid']))
+    except:
+        pass
+    try:
+        new_poem = Poem_data()
+        new_poem.poem_content = request.form['text'] #request from HTML form
+        new_poem.insertpoem()
+    except:
+        pass
     poems_list = Poem_data.update_list()
     return render_template('poems.html', poems = poems_list)
 
