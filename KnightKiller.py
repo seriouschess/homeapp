@@ -8,7 +8,7 @@ class KnightKiller():
         self.weapon = WP.weapon(attacker, hiton)
         #self.target = fortyk.WP.Target(target)
         self.target = WP.Target(target)
-        
+
 
     def calculate_attack(self):
         attackCount = []
