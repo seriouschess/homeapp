@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<style>
+.layout {
+  -webkit-columns: 80px 6; /* Chrome, Safari, Opera */
+  -moz-columns: 80px 6; /* Firefox */
+  columns: 80px 6;
+}
+</style>
+
+<div class="jumbotron text-center">
+  <h1>Starcraft 2 Terran Marine Build Calculator</h1>
+      <p>Calculate the time it takes to build x number of marines. SCVs supply depots, and Barracks are built automatically.</p> <br><br>
+
+<div class="layout">
+  {% for minute in Minutes %}
+    {% for item in minute %}
+        <p> {{item}} </p>
+    {% endfor %}
+  {% endfor %}
+</div>
+{% endblock %}
