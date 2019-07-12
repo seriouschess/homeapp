@@ -46,6 +46,10 @@ def calculate_attack():
     (average_attacks, dmg_list) = new_attack.calculate_attack()
     return render_template('test_roller_results.html', Average = average_attacks, damage_list=dmg_list)
 
+@app.route('/asteroids')
+def Asteroids():
+    return render_template('Asteroids.html')
+
 @app.route('/starcraft')
 def SC_Build_Calculator():
     return render_template('StarcraftCalculator.html')
