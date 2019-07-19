@@ -11,7 +11,7 @@ Unit =	{  #Right side information is [minerals, gas, buildtime, supply] This is 
 }
 
 class Building():
-    def __init__(self,minerals, gas, buildTime): #build time is in seconds
+    def __init__(self, minerals, gas, buildTime): #build time is in seconds
         self.minerals = minerals
         self.gas = gas
         self.buildTime = buildTime
@@ -38,11 +38,11 @@ class Building():
     #     FOR PRODUCTION STRUCTURES ONLY!!!
     def BuildUnit(self, GameTime, MapMinerals, MapGas, MapSupplyDifference, UnitType): #Unit type must be a string from the dictionary at the top of this script.
 
-        for x in self.allowedTypes: #check to make sure building can build requested UnitType
-            if UnitType is x:
-                break
-            else:
-                raise ValueError("Building unable to produce requested unit type")
+        #for x in self.allowedTypes: #check to make sure building can build requested UnitType
+            #if UnitType is x:
+                #break
+            #else:         #Used for testing
+                #raise ValueError("Building unable to produce requested unit type")
 
         if self.done == True and MapMinerals >= Unit[UnitType][0] and MapGas >= Unit[UnitType][1] and MapSupplyDifference >= Unit[UnitType][3]:
             self.startTime = GameTime - 1 #-1 because build gets started in this iteration of the loop
