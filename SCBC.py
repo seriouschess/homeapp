@@ -25,7 +25,7 @@ class TerranSimulation():
         CommandCenters = []
         SupplyDepots = []
         Refineries = []
-        Barracks = []
+        Barracks_list = []
         CommandCenters.append(UABC.CommandCenter())
 
         while GameTime <= 300: #5 minutes  #int(m.Marines) < #
@@ -48,8 +48,8 @@ class TerranSimulation():
                 #Refineries.append(UABC.Refinery())
 
             for x in range(0, len(SupplyDepots)):  # decision to build 1st barracks based on complete depot
-                if (SupplyDepots[x].complete == 2) and (len(Barracks) < 2):
-                    Barracks.append(UABC.Barracks())
+                if (SupplyDepots[x].complete == 2) and (len(Barracks_list) < 2):
+                    Barracks_list.append(UABC.Barracks())
 
 
         #Execute frame and calculate resources.
@@ -79,13 +79,13 @@ class TerranSimulation():
                     m.SCVIdle = Refineries[x].saturate(m.SCVIdle)
                 m.Gas += Refineries[x].tasked_scvs*gasRate #Add to gas count for the second.
 
-            for x in range(0, len(Barracks)):
-                minCost, gasCost, scvCountChange, = Barracks[x].Build(GameTime, m.Minerals, m.Gas, m.SCVIdle)
+            for x in range(0, len(Barracks_list)):
+                minCost, gasCost, scvCountChange, = Barracks_list[x].Build(GameTime, m.Minerals, m.Gas, m.SCVIdle)
                 m.Minerals += minCost
                 m.Gas += gasCost
                 m.SCVIdle += scvCountChange
 
-                MarineAdd, minCost, gasCost, supplyChange = Barracks[x].BuildUnit(GameTime, m.Minerals, m.Gas,
+                MarineAdd, minCost, gasCost, supplyChange = Barracks_list[x].BuildUnit(GameTime, m.Minerals, m.Gas,
                                                                                                  m.supply_available - m.supply,
                                                                                                  "Marine")
                 m.Marines += MarineAdd

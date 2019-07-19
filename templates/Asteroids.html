@@ -28,17 +28,29 @@
     const DIFFICULTY_RAMP = 0.2; //how quickly the level increases affect asteroid speed
     const ASTERS_INCREASE_INCREMENT = 5; //number of levels before a new asteroid is added to the belt
     const SCORE_INCREMENT = 10; //score +10 for every asteroid piece destroyed
-
-    window.scrollTo(0, 0);
+    const NEW_LEVEL_COUNTDOWN = 40;
 
     /** @type {HTMLCanvasElement} */
     var canv = document.getElementById("Screen");
     var ctx = canv.getContext("2d");
 
+    //Event Handelers
+    document.addEventListener("keydown", keyDown);
+    document.addEventListener("keyup", keyUp);
+
+    //set up game loop
+    setInterval(update, 1000 / FPS);
+
+    //Initial Variables
     var level = 1;
     var score = 0; //score +SCORE_INCREMENT for every asteroid piece destroyed
     var asters_speed = 30; //determines speed for asteroids
+    var explode_time = 0;
+    var dead_ship = false;
+    var game_end_counter = 0;
+    var new_level_countdown = NEW_LEVEL_COUNTDOWN;
 
+    //Initialize new ship
     var ship = {
           x: canv.width / 2,
           y: canv.height / 2,
@@ -53,6 +65,14 @@
             y: 0,
           }
         }
+
+    // set up ASTEROIDS
+    var asters = [];
+
+    function Initialize_Game(){
+      // level,score, asters_speed, explode_time, dead_ship, game_end_counter, new_level_countdown, ship, asters
+      return Initial_Values_List = [1, 0 ,30 ,0 ,false ,0 ,NEW_LEVEL_COUNTDOWN, {x: canv.width / 2, y: canv.height / 2, r: SHIP_SIZE / 2, a: 90 / 180 * Math.PI, rot: 0, thrust: false, loaded: true, lasers: [], speed: {x: 0, y: 0,}},[]] //Resetting the IVL resets the game.
+      }
 
     function Laserfire() {
       if (ship.loaded == true && ship.lasers.length < LASER_MAX){
@@ -69,21 +89,10 @@
       ship.canShoot = false;
     }
 
-    // set up ASTEROIDS
-    var asters = [];
-    createAsteroidBelt(level);
-
-    //set up game loop
-    setInterval(update, 1000 / FPS);
-
-    //Event Handelers
-    document.addEventListener("keydown", keyDown);
-    document.addEventListener("keyup", keyUp);
-
     function distBetweenPoints (x1, y1, x2, y2) {
-    distance = Math.sqrt((x2- x1)**2 + (y1- y2)**2);
-    return distance;
-  }
+      distance = Math.sqrt((x2- x1)**2 + (y1- y2)**2);
+      return distance;
+      }
 
   function explodeShip(time) { //used when game ends
       ctx.fillStyle = "red";
@@ -172,252 +181,249 @@
       score += SCORE_INCREMENT;
     }
 
-var explode_time = 0;
-var dead_ship = false;
-var game_end_counter = 0;
-const NEW_LEVEL_COUNTDOWN = 40;
-var new_level_countdown = NEW_LEVEL_COUNTDOWN;
+      function update() {
+          //draw space
+          ctx.fillStyle = "black"; //default color
+          ctx.fillRect(0, 0, canv.width, canv.height); //origin (x,y), canvas width and height
 
-
-    function update() {
-
-
-        //draw space
-        ctx.fillStyle = "black"; //default color
-        ctx.fillRect(0, 0, canv.width, canv.height); //origin (x,y), canvas width and height
-
-          //NEW LEVEL POTENTIAL
-          if (asters.length < 1){
-            new_level_countdown -= 1;
-            ctx.font = "50px Arial";
-            ctx.fillStyle = "white";
-            ctx.textAllign = "center";
-            ctx.fillText("Level " + String(level + 1), 10, 50);
-            if (new_level_countdown < 1){
-              level += 1;
-              createAsteroidBelt(level);
-              ship.lasers = [];
-              new_level_countdown = NEW_LEVEL_COUNTDOWN;
+            //NEW LEVEL POTENTIAL
+            if (asters.length < 1){
+              new_level_countdown -= 1;
+              ctx.font = "50px Arial";
+              ctx.fillStyle = "white";
+              ctx.textAllign = "center";
+              ctx.fillText("Level " + String(level), 10, 50);
+              if (new_level_countdown < 1){
+                level += 1;
+                createAsteroidBelt(level);
+                ship.lasers = [];
+                new_level_countdown = NEW_LEVEL_COUNTDOWN;
+              }
             }
-          }
 
-        if(dead_ship == false){
-          //draw fire
-          if(ship.thrust){
+          if(dead_ship == false){
+            //draw fire
+            if(ship.thrust){
 
-            ctx.fillStyle = "white";
-            ctx.strokeStyle = "blue";
+              ctx.fillStyle = "white";
+              ctx.strokeStyle = "blue";
+              ctx.lineWidth = SHIP_SIZE / 10;
+              ctx.beginPath();
+              ctx.moveTo( //rear left
+              ship.x - ship.r * (2 / 3 * Math.cos(ship.a) + 0.4*Math.sin(ship.a)),
+              ship.y + ship.r * (2 / 3 * Math.sin(ship.a) - 0.4*Math.cos(ship.a))
+              );
+
+              ctx.lineTo( //rear center
+                ship.x - ship.r * (5 / 3 * Math.cos(ship.a)),
+                ship.y + ship.r * (5 / 3 * Math.sin(ship.a))
+              );
+
+              ctx.lineTo( //rear right
+                ship.x - ship.r * ( 2 / 3 * Math.cos(ship.a) - 0.4*Math.sin(ship.a)),
+                ship.y + ship.r * ( 2 / 3 * Math.sin(ship.a) + 0.4*Math.cos(ship.a))
+              );
+
+              ctx.closePath();
+              ctx.fill();
+              ctx.stroke();
+            }
+
+            //draw ship
+            ctx.strokeStyle = "grey";
+            ctx.fillStyle = "grey";
             ctx.lineWidth = SHIP_SIZE / 10;
             ctx.beginPath();
-            ctx.moveTo( //rear left
-            ship.x - ship.r * (2 / 3 * Math.cos(ship.a) + 0.4*Math.sin(ship.a)),
-            ship.y + ship.r * (2 / 3 * Math.sin(ship.a) - 0.4*Math.cos(ship.a))
+            ctx.moveTo(
+                ship.x + 4 / 3 * ship.r * Math.cos(ship.a),
+                ship.y - 4 / 3 * ship.r * Math.sin(ship.a)
             );
 
-            ctx.lineTo( //rear center
-              ship.x - ship.r * (5 / 3 * Math.cos(ship.a)),
-              ship.y + ship.r * (5 / 3 * Math.sin(ship.a))
-            );
+            ctx.lineTo( //rear left
+                ship.x - ship.r * (2 / 3 * Math.cos(ship.a) + Math.sin(ship.a)),
+                ship.y + ship.r * (2 / 3 * Math.sin(ship.a) - Math.cos(ship.a))
+                );
 
             ctx.lineTo( //rear right
-              ship.x - ship.r * ( 2 / 3 * Math.cos(ship.a) - 0.4*Math.sin(ship.a)),
-              ship.y + ship.r * ( 2 / 3 * Math.sin(ship.a) + 0.4*Math.cos(ship.a))
-            );
+                ship.x - ship.r * ( 2 / 3 * Math.cos(ship.a) - Math.sin(ship.a)),
+                ship.y + ship.r * ( 2 / 3 * Math.sin(ship.a) + Math.cos(ship.a))
+                );
 
             ctx.closePath();
             ctx.fill();
             ctx.stroke();
+
+            if (SHOW_CENTER_DOT){ //center dot of ship
+              ctx.fillStyle = "white";
+              ctx.fillRect(ship.x - 2, ship.y - 2, 4, 4); //2 pixels wide
+            }
+
+            //rotate ship
+            ship.a += ship.rot;
+
+            //move ship
+            if (ship.thrust) {
+              ship.speed.x += SHIP_THRUST*Math.cos(ship.a) / FPS;
+              ship.speed.y += SHIP_THRUST*Math.sin(ship.a) / FPS;
+
+            } else {
+              ship.speed.x -= FRICTION*ship.speed.x / FPS;
+              ship.speed.y -= FRICTION*ship.speed.y / FPS;
+            }
+
+            ship.x += ship.speed.x,
+            ship.y -= ship.speed.y
+        }
+
+        //draw lasers
+        for (var i = 0; i < ship.lasers.length; i++) {
+                  ctx.fillStyle = "salmon";
+                  ctx.beginPath();
+                  ctx.arc(ship.lasers[i].x, ship.lasers[i].y, SHIP_SIZE / 15, 0, Math.PI * 2, false);
+                  ctx.fill();
+              }
+
+          //handle lasers
+          for (i=0;i < ship.lasers.length; i++ ){
+
+            //degrade laser
+            ship.lasers[i].time -= 1;
+            if(ship.lasers[i].time < 0) {
+              ship.lasers.splice(i, 1)
+              continue;
+              }
+
+            //move lasers
+            ship.lasers[i].x += ship.lasers[i].xv;
+            ship.lasers[i].y += ship.lasers[i].yv;
+
+            //hit scan ASTEROIDS
+            var ax, ay, ar, lx, ly;
+            lx = ship.lasers[i].x;
+            ly = ship.lasers[i].y;
+            for (var j=0; j < asters.length; j++) {
+              ax = asters[j].x;
+              ay = asters[j].y;
+              ar = asters[j].r;
+              if(distBetweenPoints(ax, ay, lx, ly) < ar){
+                destroyAsteroid(j);
+                ship.lasers.splice(i, 1);
+              }
+            }
+
+            //edge of Screen
+            if (ship.lasers[i].x < 0) {
+                ship.lasers[i].x = canv.width;
+            }
+            if (ship.lasers[i].x > canv.width) {
+                ship.lasers[i].x = 0;
+            }
+            if (ship.lasers[i].y < 0) {
+                ship.lasers[i].y = canv.height;
+            }
+            if (ship.lasers[i].y > canv.height) {
+                ship.lasers[i].y = 0;
+              }
           }
 
-          //draw ship
-          ctx.strokeStyle = "grey";
-          ctx.fillStyle = "grey";
-          ctx.lineWidth = SHIP_SIZE / 10;
-          ctx.beginPath();
-          ctx.moveTo(
-              ship.x + 4 / 3 * ship.r * Math.cos(ship.a),
-              ship.y - 4 / 3 * ship.r * Math.sin(ship.a)
-          );
-
-          ctx.lineTo( //rear left
-              ship.x - ship.r * (2 / 3 * Math.cos(ship.a) + Math.sin(ship.a)),
-              ship.y + ship.r * (2 / 3 * Math.sin(ship.a) - Math.cos(ship.a))
+            //draww the ASTEROIDS
+            ctx.strokeStyle = "slategrey";
+            ctx.fillStyle = "slategrey";
+            ctx.linewidth = SHIP_SIZE / 20;
+            var a, r, x, y, vert, offs;
+            for (var i = 0; i < asters.length; i++){
+              //get properties
+              x = asters[i].x;
+              y = asters[i].y;
+              r = asters[i].r;
+              a = asters[i].a;
+              vert = asters[i].vert;
+              offs = asters[i].offs;
+              //draw asteroid
+              ctx.beginPath();
+              ctx.moveTo(
+                x + r * offs[0] * Math.cos(a),
+                y - r * offs[0] * Math.sin(a)
               );
 
-          ctx.lineTo( //rear right
-              ship.x - ship.r * ( 2 / 3 * Math.cos(ship.a) - Math.sin(ship.a)),
-              ship.y + ship.r * ( 2 / 3 * Math.sin(ship.a) + Math.cos(ship.a))
-              );
+                  for (var j = 1; j < vert; j++){
+                    ctx.lineTo(
+                      x + r * offs[j] * Math.cos(a + j * Math.PI * 2 / vert),
+                      y - r * offs[j] * Math.sin(a + j * Math.PI * 2 / vert)
+                    );
+                }
+              ctx.closePath();
+              ctx.stroke();
 
-          ctx.closePath();
-          ctx.fill();
-          ctx.stroke();
-
-          if (SHOW_CENTER_DOT){ //center dot of ship
-            ctx.fillStyle = "white";
-            ctx.fillRect(ship.x - 2, ship.y - 2, 4, 4); //2 pixels wide
-          }
-
-          //rotate ship
-          ship.a += ship.rot;
-
-          //move ship
-          if (ship.thrust) {
-            ship.speed.x += SHIP_THRUST*Math.cos(ship.a) / FPS;
-            ship.speed.y += SHIP_THRUST*Math.sin(ship.a) / FPS;
-
-          } else {
-            ship.speed.x -= FRICTION*ship.speed.x / FPS;
-            ship.speed.y -= FRICTION*ship.speed.y / FPS;
-          }
-
-          ship.x += ship.speed.x,
-          ship.y -= ship.speed.y
-
-      }
-
-      //draw lasers
-      for (var i = 0; i < ship.lasers.length; i++) {
-                ctx.fillStyle = "salmon";
-                ctx.beginPath();
-                ctx.arc(ship.lasers[i].x, ship.lasers[i].y, SHIP_SIZE / 15, 0, Math.PI * 2, false);
-                ctx.fill();
-            }
-
-        //handle lasers
-        for (i=0;i < ship.lasers.length; i++ ){
-
-          //degrade laser
-          ship.lasers[i].time -= 1;
-          if(ship.lasers[i].time < 0) {
-            ship.lasers.splice(i, 1)
-            continue;
-            }
-
-          //move lasers
-          ship.lasers[i].x += ship.lasers[i].xv;
-          ship.lasers[i].y += ship.lasers[i].yv;
-
-
-          //hit scan ASTEROIDS
-          var ax, ay, ar, lx, ly;
-          lx = ship.lasers[i].x;
-          ly = ship.lasers[i].y;
-          for (var j=0; j < asters.length; j++) {
-            ax = asters[j].x;
-            ay = asters[j].y;
-            ar = asters[j].r;
-            if(distBetweenPoints(ax, ay, lx, ly) < ar){
-              destroyAsteroid(j);
-              ship.lasers.splice(i, 1);
-            }
-
-          }
-
-          //edge of Screen
-          if (ship.lasers[i].x < 0) {
-              ship.lasers[i].x = canv.width;
-          }
-          if (ship.lasers[i].x > canv.width) {
-              ship.lasers[i].x = 0;
-          }
-          if (ship.lasers[i].y < 0) {
-              ship.lasers[i].y = canv.height;
-          }
-          if (ship.lasers[i].y > canv.height) {
-              ship.lasers[i].y = 0;
-            }
-        }
-
-
-          //draww the ASTEROIDS
-          ctx.strokeStyle = "slategrey";
-          ctx.fillStyle = "slategrey";
-          ctx.linewidth = SHIP_SIZE / 20;
-          var a, r, x, y, vert, offs;
-          for (var i = 0; i < asters.length; i++){
-            //get properties
-            x = asters[i].x;
-            y = asters[i].y;
-            r = asters[i].r;
-            a = asters[i].a;
-            vert = asters[i].vert;
-            offs = asters[i].offs;
-            //draw asteroid
-            ctx.beginPath();
-            ctx.moveTo(
-              x + r * offs[0] * Math.cos(a),
-              y - r * offs[0] * Math.sin(a)
-            );
-
-                for (var j = 1; j < vert; j++){
-                  ctx.lineTo(
-                    x + r * offs[j] * Math.cos(a + j * Math.PI * 2 / vert),
-                    y - r * offs[j] * Math.sin(a + j * Math.PI * 2 / vert)
-                  );
+              //move the asteroids
+              asters[i].x += asters[i].xv
+              asters[i].y += asters[i].yv
+              //handle edge of screen
+              if (asters[i].x < 0 - asters[i].r) {
+                  asters[i].x = canv.width + asters[i].r;
               }
-            ctx.closePath();
-            ctx.stroke();
-
-            //move the asteroids
-            asters[i].x += asters[i].xv
-            asters[i].y += asters[i].yv
-            //handle edge of screen
-            if (asters[i].x < 0 - asters[i].r) {
-                asters[i].x = canv.width + asters[i].r;
-            }
-            if (asters[i].x > canv.width + asters[i].r) {
-                asters[i].x = 0 - asters[i].r;
-            }
-            if (asters[i].y < 0 - asters[i].r) {
-                asters[i].y = canv.height + asters[i].r;
-            }
-            if (asters[i].y > canv.height + asters[i].r) {
-                asters[i].y = 0 - asters[i].r;
+              if (asters[i].x > canv.width + asters[i].r) {
+                  asters[i].x = 0 - asters[i].r;
               }
-        }
-
-       //wrap screen
-       if (ship.x < 0 - ship.r) {
-           ship.x = canv.width + ship.r;
-       }
-       if (ship.x > canv.width + ship.r) {
-           ship.x = 0 - ship.r;
-       }
-       if (ship.y < 0 - ship.r) {
-           ship.y = canv.height + ship.r;
-       }
-       if (ship.y > canv.height + ship.r) {
-           ship.y = 0 - ship.r;
-       }
-
-       //display score
-       ctx.font = "20px Arial";
-       ctx.fillStyle = "white";
-       ctx.fillText("Score: " + String(score) + "  ", canv.width - 100, 50);
-
-       //Kill Ship!
-       for(var i = 0; i < asters.length; i++) {
-          if (distBetweenPoints(asters[i].x, asters[i].y, ship.x, ship.y) < asters[i].r + ship.r || dead_ship == true){
-            explode_time += 5;
-            explodeShip(explode_time);
-            dead_ship = true;
-            ctx.font = "50px Arial";
-            ctx.fillStyle = "white";
-            ctx.fillText("GAME OVER x_x", canv.width/4 , canv.height/2); //divide by 4 works??
-            game_end_counter += 1;
+              if (asters[i].y < 0 - asters[i].r) {
+                  asters[i].y = canv.height + asters[i].r;
+              }
+              if (asters[i].y > canv.height + asters[i].r) {
+                  asters[i].y = 0 - asters[i].r;
+                }
           }
-        }
-        if (game_end_counter > 180){
-          location.reload();
-        };
-     }
+
+         //wrap screen
+         if (ship.x < 0 - ship.r) {
+             ship.x = canv.width + ship.r;
+         }
+         if (ship.x > canv.width + ship.r) {
+             ship.x = 0 - ship.r;
+         }
+         if (ship.y < 0 - ship.r) {
+             ship.y = canv.height + ship.r;
+         }
+         if (ship.y > canv.height + ship.r) {
+             ship.y = 0 - ship.r;
+         }
+
+         //display score
+         ctx.font = "20px Arial";
+         ctx.fillStyle = "white";
+         ctx.fillText("Score: " + String(score) + "  ", canv.width - 150, 50);
+
+         //Kill Ship!
+         for(var i = 0; i < asters.length; i++) {
+            if (distBetweenPoints(asters[i].x, asters[i].y, ship.x, ship.y) < asters[i].r + ship.r || dead_ship == true){
+              explode_time += 5;
+              explodeShip(explode_time);
+              dead_ship = true;
+              ctx.font = "50px Arial";
+              ctx.fillStyle = "white";
+              ctx.fillText("GAME OVER x_x", canv.width/4 , canv.height/2); //divide by 4 works??
+              game_end_counter += 1;
+            }
+          }
+
+          if (game_end_counter > 180){
+            // level, score, asters_speed, explode_time, dead_ship, game_end_counter, new_level_countdown, ship, asters
+            initial_values = Initialize_Game();
+            level = initial_values[0];
+            score = initial_values[1];
+            asters_speed = initial_values[2];
+            explode_time = initial_values[3];
+            dead_ship = initial_values[4];
+            game_end_counter = initial_values[5];
+            new_level_countdown = initial_values[6];
+            ship = initial_values[7];
+            asters = initial_values[8];
+            dead_ship = false;
+          };
+       }
 
 </script>
-<p> Use the up arrow key to move forward    </p>
-<p> Use the side arrow keys to turn    </p> 
-<p> Use the spacebar to activate the laser</p>
+<pre> Use the up arrow key to move forward             Use the side arrow keys to turn            Use the spacebar to activate the laser</pre>
+<a href="http://www.professionalserver.net/">Back To Homepage</a>
 
 </body>
-
 </html>

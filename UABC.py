@@ -41,8 +41,8 @@ class Building():
         for x in self.allowedTypes: #check to make sure building can build requested UnitType
             if UnitType is x:
                 break
-        else:
-            raise ValueError("Building unable to produce requested unit type")
+            else:
+                raise ValueError("Building unable to produce requested unit type")
 
         if self.done == True and MapMinerals >= Unit[UnitType][0] and MapGas >= Unit[UnitType][1] and MapSupplyDifference >= Unit[UnitType][3]:
             self.startTime = GameTime - 1 #-1 because build gets started in this iteration of the loop
