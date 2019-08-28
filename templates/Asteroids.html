@@ -4,10 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Asteroids</title>
-    <style></style>
+    <script type=text/javascript src="/jquery"></script>
 </head>
 
 <body>
+  <script type=text/javascript> //used to get jquery to work
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+  </script>
   <canvas id="Screen" width="800" height="600"></canvas>
 <script>
 
@@ -29,6 +32,7 @@
     const ASTERS_INCREASE_INCREMENT = 5; //number of levels before a new asteroid is added to the belt
     const SCORE_INCREMENT = 10; //score +10 for every asteroid piece destroyed
     const NEW_LEVEL_COUNTDOWN = 40;
+    const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     /** @type {HTMLCanvasElement} */
     var canv = document.getElementById("Screen");
@@ -44,11 +48,20 @@
     //Initial Variables
     var level = 1;
     var score = 0; //score +SCORE_INCREMENT for every asteroid piece destroyed
+    var server_score = 0;
     var asters_speed = 30; //determines speed for asteroids
     var explode_time = 0;
     var dead_ship = false;
     var game_end_counter = 0;
     var new_level_countdown = NEW_LEVEL_COUNTDOWN;
+
+    //highscore variables
+    var got_highscore = false;
+    var initials = ["A", "A", "A"];
+    var score_cursor = 0;
+    var score_letter_index = 0;
+    var added_counter = 0; //loop counter to desplay that score was sent to server
+    var bad = false;
 
     //Initialize new ship
     var ship = {
@@ -116,26 +129,97 @@
 
     function keyDown(/** @type {KeyboardEvent} */ ev) {
       switch(ev.keyCode){
-        case 32: //space bar laser
+        case 32: //space bar
             Laserfire();
             break;
         case 37: //left arrow
             ship.rot = TURN_SPEED / 180 * Math.PI / FPS;
+            if(got_highscore == true){
+                if (score_cursor > 0){
+                  score_cursor -= 1;
+                  for(i=0; i<25; i++){
+                    if (initials[score_cursor] === LETTERS.charAt(i)){
+                        score_letter_index = i;
+                    }
+                  }
+                }
+            }
+
             break;
         case 38: // up
             ship.thrust = true;
+            if(got_highscore == true){
+                if(score_letter_index < 24){
+                  score_letter_index += 1;
+                }else{
+                  score_letter_index = 0;
+                }
+            }
+
             break;
         case 39: // right arrow
             ship.rot = -TURN_SPEED / 180 * Math.PI / FPS;
+              if(got_highscore == true){
+                if (score_cursor < 2){
+
+                  score_cursor += 1;
+                  for(i=0; i<25; i++){
+                        if (initials[score_cursor] === LETTERS.charAt(i)){
+                            score_letter_index = i;
+                          }
+                        }
+                  }
+              }
+            break;
+        case 40: //down arrow
+            if(got_highscore == true){
+              if(score_letter_index < 1){
+                score_letter_index = 24;
+              } else{
+                score_letter_index -= 1;
+              }
+            }
+            break;
+        case 13: //Enter
+        if (got_highscore == true){
+          if(initials[0]+initials[1]+initials[2] === "ASS" ||
+          initials[0]+initials[1]+initials[2] === "GAY" ||
+          initials[0]+initials[1]+initials[2] === "FAG" ||
+          initials[0]+initials[1]+initials[2] === "NIG"){
+            bad = true;
+          } else{
+            got_highscore = false;
+
+            var dict = {}
+            dict["initials"] = initials[0]+initials[1]+initials[2];
+            dict["value"] = String(score);
+            dict["test"] =  9000;
+
+            $.ajax({
+              url: $SCRIPT_ROOT + "/post_score",
+              type: "POST",
+              contentType: 'application/json;charset=UTF-8',
+              dataType: 'json',
+              data: JSON.stringify(dict),
+              success: function(data) {
+                    if (data.score_added){
+                      added_counter = 80;
+                      score = initial_values[1];
+                    }
+                  }
+            });
+
+          }
             break;
         }
+      }
     }
 
     function keyUp(/** @type {KeyboardEvent} */ ev) {
       switch(ev.keyCode){
         case 32: //space bar laser
               //prevent scrolling
-              window.onscroll = function () {window.scrollTo(0, 0); };
+              window.onscroll = function () { window.scrollTo(0, 0); };
             break;
         case 37: //left arrow
             ship.rot = 0;
@@ -181,13 +265,47 @@
       score += SCORE_INCREMENT;
     }
 
-      function update() {
+      function update() {  // ---------------------------------------UPDATE LOOP!!!!-------------------------------
           //draw space
           ctx.fillStyle = "black"; //default color
           ctx.fillRect(0, 0, canv.width, canv.height); //origin (x,y), canvas width and height
 
+          if(got_highscore == true){ // enter highscore loop
+            ctx.font = "50px Arial";
+            ctx.fillStyle = "blue";
+            ctx.fillText(initials[0], canv.width/4, canv.height/2 - 50);
+            ctx.fillText(initials[1], canv.width/4 + 50 , canv.height/2 - 50);
+            ctx.fillText(initials[2], canv.width/4 + 100, canv.height/2 - 50);
+            ctx.fillStyle = "green";
+            if (score_cursor == 0){
+              ctx.fillText(initials[score_cursor], canv.width/4, canv.height/2 - 50);
+            }
+            if (score_cursor == 1){
+              ctx.fillText(initials[score_cursor], canv.width/4 + 50 , canv.height/2 - 50);
+            }
+            if (score_cursor == 2){
+              ctx.fillText(initials[score_cursor], canv.width/4 + 100, canv.height/2 - 50);
+            }
+            ctx.fillStyle = "white";
+            ctx.fillText("Your score was: " + String(score), canv.width/4 - 50, 100);
+            ctx.font = "30px Arial";
+            ctx.fillText("You got a high score! Enter your initials!", canv.width/4 -60, canv.height/2);
+            ctx.font = "20px Arial";
+            ctx.fillText("Press Arrows to select letters.", canv.width/4, canv.height-50);
+            ctx.fillText("Press Enter to quit and save", canv.width/4, canv.height-10);
+            if(bad){
+              ctx.font = "50px Arial";
+              ctx.fillStyle = "red";
+              ctx.fillText("Do be tasteful", canv.width/4, canv.height-200);
+            }
+
+            initials[score_cursor] = LETTERS.charAt(score_letter_index);
+
+          }
+          else{ //          -------------DO EVERYTHING ELSE!!!--------------
+            //  ------------------SERIOUSLY!!!!!!!!---------------------
             //NEW LEVEL POTENTIAL
-            if (asters.length < 1){
+            if (asters.length < 1){ //player eleiminated all the asteroids
               new_level_countdown -= 1;
               ctx.font = "50px Arial";
               ctx.fillStyle = "white";
@@ -391,10 +509,16 @@
          ctx.font = "20px Arial";
          ctx.fillStyle = "white";
          ctx.fillText("Score: " + String(score) + "  ", canv.width - 150, 50);
+         if(added_counter > 0){
+           ctx.fillStyle = "green";
+           ctx.fillText("Highscore Uploaded!!", canv.width - 250, 90);
+           added_counter -= 1;
+       }
 
          //Kill Ship!
          for(var i = 0; i < asters.length; i++) {
             if (distBetweenPoints(asters[i].x, asters[i].y, ship.x, ship.y) < asters[i].r + ship.r || dead_ship == true){
+
               explode_time += 5;
               explodeShip(explode_time);
               dead_ship = true;
@@ -407,9 +531,23 @@
 
           if (game_end_counter > 180){
             // level, score, asters_speed, explode_time, dead_ship, game_end_counter, new_level_countdown, ship, asters
+
+            $.ajax({
+              url: $SCRIPT_ROOT + "/get_tenth",
+              type: "GET",
+              success: function(data) {
+                  server_score = data.tenth_place
+                  if(data.tenth_place < score){
+                      got_highscore = true;
+                     }
+                  else{
+                      score = initial_values[1];
+                     }
+                  }
+             });
+
             initial_values = Initialize_Game();
             level = initial_values[0];
-            score = initial_values[1];
             asters_speed = initial_values[2];
             explode_time = initial_values[3];
             dead_ship = initial_values[4];
@@ -418,12 +556,12 @@
             ship = initial_values[7];
             asters = initial_values[8];
             dead_ship = false;
-          };
-       }
-
+           };
+      } //DO EVERYTHING ELSE BRACKET!!!
+    };
 </script>
-<pre> Use the up arrow key to move forward             Use the side arrow keys to turn            Use the spacebar to activate the laser</pre>
-<a href="http://www.professionalserver.net/">Back To Homepage</a>
+<pre> Use the up arrow keys to move. Use the spacebar to activate the laser</pre>
+<a href="/highscores">Show Highscores</a>
 
 </body>
 </html>

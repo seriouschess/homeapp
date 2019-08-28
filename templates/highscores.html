@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="jumbotron text-center">
+  <h1>High Scores</h1>
+</div>
+
+<center>For Asteroids</center>
+
+  <ul class="list.group">
+
+     {% for score in score_list %}
+      <li class="list-group-item"><center><large><b>{{score["initials"]}} got a score of {{score["value"]}}</b></large></center></li>
+      {% endfor %}
+</ul>
+<br><br>
+<center>Will you achieve a score high enough to be on this list?</center>
+{% endblock %}
