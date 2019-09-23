@@ -1,35 +1,41 @@
-{% extends 'layout.html' %}
-{% block body %}
-<style>
-  li {
-    display: block;
-    width: 25%;
-    float: left;
-}
-</style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title> professionalserver.net </title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/test_roller_results.css') }}">
+  </head>
 
-  <b>Test Results</b>
-  <p>Each bracket represents a takedown of the target by the selected weapon</p>
-  <p>The numbers in the brackets each represent damage done to the target each turn.</p>
-  <br>
-  <p>The number of numbers in each bracket represent the total number of turns that had to be resolved to bring the target down.</p>
-  <p>For example, [4,5,6] means that the weapon required 3 turns to bring its target down as there are 3 numbers in the brackets.</p>
-  <br>
-  <p>Note: some weapons attack multiple times each turn such as the Heavy Bolter. The total damage done in a single turn is added together.</p>
-  <p>Hit, wound, and save rolls are calculated based on pseudorandom numbers each time a calculation is made</p>
+  <body>
+    <div id="container">
+      <h1>Professional Server Homepage</h1>
+      <div id="navbar">
+          <a class="navElement" href="/">Home</a>
+          <a class="navElement" href="/poems">Poems</a>
+          <a class="navElement" href="/40k">40kRoller</a>
+          <a class="navElement" href="/asteroids">Asteroids</a>
+          <a class="navElement" href="/highscores">Asteroid Scores</a>
+          <a class="navElement" href="/starcraft">SC Builds</a>
+      </div>
+        <p>Test Results:</p>
+        <p>Each bracket represents a takedown of the target by the selected weapon</p>
+        <p>The numbers in the brackets each represent damage done to the target each turn.</p>
+        <p>The number of numbers in each bracket represent the total number of turns that had to be resolved to bring the target down.</p>
+        <p>For example, [4,5,6] means that the weapon required 3 turns to bring its target down as there are 3 numbers in the brackets.</p>
+        <p>Note: some weapons attack multiple times each turn such as the Heavy Bolter. The total damage done in a single turn is added together.</p>
+        <p>Hit, wound, and save rolls are calculated based on pseudorandom numbers each time a calculation is made</p>
 
-<ul class="list.group">
-{% for item in damage_list %}
- <li class="list-group-item">{{item}}</li>
- {% endfor %}
- <p>50 Total Takedowns averaged</p>
-<br><br>
-  <div class="jumbotron text-center">
-    <h1>The average number of turns required to bring the target down is: {{Average}}</h1>
-          <br /> <br /> <br />
-      <p>Do you want to go back to the Test roller?</p>
-
-      <form method="GET">
-        <input type="submit" name="submit" value="Return to 40k Test Roller">
-      </form>
-{% endblock %}
+      {% for item in damage_list %}
+      <div class="arrayblock">
+       <p>{{item}}</p>
+      </div>
+       {% endfor %}
+       <p>50 Total Takedowns averaged</p>
+          <h3>The average number of turns required to bring the target down is: {{Average}}</h3>
+            <p>Do you want to go back to the Test roller?</p>
+            <form method="GET">
+              <input class="button" type="submit" name="submit" value="Return to 40k Test Roller">
+            </form>
+    </div>
+  </body>
+</html>

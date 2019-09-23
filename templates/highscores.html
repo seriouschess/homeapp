@@ -1,19 +1,25 @@
-{% extends 'layout.html' %}
-
-{% block body %}
-
-<div class="jumbotron text-center">
-  <h1>High Scores</h1>
-</div>
-
-<center>For Asteroids</center>
-
-  <ul class="list.group">
-
-     {% for score in score_list %}
-      <li class="list-group-item"><center><large><b>{{score["initials"]}} got a score of {{score["value"]}}</b></large></center></li>
-      {% endfor %}
-</ul>
-<br><br>
-<center>Will you achieve a score high enough to be on this list?</center>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title> professionalserver.net </title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/highscores.css') }}">
+  </head>
+  <body>
+    <div id="container">
+            <h1>High Scores for Asteroids</h1>
+      <div id="navbar">
+          <a class="navElement" href="/">Home</a>
+          <a class="navElement" href="/poems">Poems</a>
+          <a class="navElement" href="/40k">40kRoller</a>
+          <a class="navElement" href="/asteroids">Asteroids</a>
+          <a class="navElement" href="/highscores">Asteroid Scores</a>
+          <a class="navElement" href="/starcraft">SC Builds</a>
+      </div>
+         {% for score in score_list %}
+          <p>{{score["initials"]}} got a score of {{score["value"]}}</p>
+          {% endfor %}
+      <h3>Will you achieve a score high enough to be on this list?</h3>
+    </div>
+  </body>
+</html>

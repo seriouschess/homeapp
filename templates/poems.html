@@ -1,46 +1,46 @@
-{% extends 'layout.html' %}
 
-{% block body %}
-<style type=textboxid>
-  {
-    height:200px;
-    font-size:14pt;
-  }
-</style>
-  <div class="jumbotron text-center">
-    <h1>List of poems and quips</h1>
-    <ul class="list.group">
-       {% for poem in poems %}
-        <li class="list-group-item">{{poem.title}}</li>
-          <p>{{poem.body}}</p>
-        {% endfor %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title> professionalserver.net</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/poems.css') }}">
+  </head>
 
-          <br /> <br /> <br />
-         <p>Type your poem or quip here! Shorter is better as brevity is an artform in itself.</p>
-        <small>(120 chars max)</small> <br />
+  <body>
+    <div id="container">
+      <h1>Professional Server Homepage</h1>
+      <div id="navbar">
+          <a class="navElement" href="/">Home</a>
+          <a class="navElement" href="/poems">Poems</a>
+          <a class="navElement" href="/40k">40kRoller</a>
+          <a class="navElement" href="/asteroids">Asteroids</a>
+          <a class="navElement" href="/highscores">Asteroid Scores</a>
+          <a class="navElement" href="/starcraft">SC Builds</a>
+      </div>
+          <h1>List of poems and quips</h1>
+             {% for poem in poems %}
+              <p class="list-group-item">{{poem.title}}</p>
+                <p>{{poem.body}}</p>
+              {% endfor %}
+            <p>Type your poem or quip here! Shorter is better as brevity is an artform in itself.</p>
+            <small> (120 chars max) </small>
 
-      <form method="POST">
-         <textarea input_type="text" name="text" maxlength="120"
-         style="font-size:14pt;height:150px;width:500px">
-         </textarea> <br>
-        <button type="submit" name="text" value="bar">Enter</button>
-      </form>
+            <form method="POST">
+               <textarea class="poeminput" input_type="text" name="text" maxlength="120"></textarea>
+              <button type="submit" name="text" value="bar">Enter</button>
+            </form>
 
-<br> <br> <br> <br>
+            <p>You may select a poem to delete if you believe it to be terrible. Can you be trusted with such an ability?</p>
 
-<p>You may select a poem to delete if you believe it to be terrible. Can you be trusted with such an ability?</p>
-
-<br>
-      <form method="POST">
-        <fieldset>
-          <legend>Select Poem for Deletion (if you really want to)</legend>
-          {% for poem in poems %}
-          Poem Number {{poem.id}}<input type="checkbox" type="radio" name="poemid"
-        value={{poem.id}}>
-           {% endfor %}
-        </fieldset>
-
-        <input type="submit" name="poemid" value="Delete Poem" method="DELETE">
-      </form>
-
-{% endblock %}
+            <form method="POST">
+                <p>Select Poem for Deletion (if you really want to)</p>
+                {% for poem in poems %}
+                Poem Number {{poem.id}}<input type="radio" name="poemid"
+              value={{poem.id}}>
+                 {% endfor %}
+              <input class="button" type="submit" name="poemid" value="Delete Poem" method="DELETE">
+            </form>
+    </div>
+  </body>
+</html>

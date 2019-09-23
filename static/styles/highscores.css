@@ -1,0 +1,99 @@
+*{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  vertical-align: top;
+  color: white;
+}
+
+#container{
+  width: 1200px;
+  padding: 10px;
+  background-color: rgb(30,30,60);
+  margin-left: 20px;
+}
+
+#container h1{
+  margin-left: 40%;
+}
+
+#container p{
+  margin: 30px;
+}
+
+#navbar{
+  width: 1100px;
+  margin-left: 2%;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  height: 80px;
+  background-color: rgb(100,100,200);
+  padding: 20px;
+}
+
+.navElement{
+  width: 120px;
+  height: 40px;
+  margin-left: 50px;
+  text-decoration: none;
+  color: white;
+  background-color: rgb(150, 150, 250);
+  padding: 5px;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+#container p{
+  display: block;
+  margin-left: 40%;
+  padding: 10px;
+  color: black;
+  height: 50px;
+  width: 200px;
+  background-color: rgb(250,200,80);
+  border-radius: 3px;
+  border: 2px solid silver;
+  font-size: 18px;
+}
+
+#container h1{
+  margin-left: 400px;
+}
+#container h3{
+  margin-left: 400px;
+}
+
+@media only screen and (max-width: 1099px){
+  #navbar{
+    width: 90%;
+    height: 160px;
+    margin-left: 5%;
+    padding: 10px;
+  }
+  .navElement{
+    margin-top: 20px;
+    margin-left: 1%;
+  }
+
+  #container{
+    width: 90%;
+    padding: 0px;
+    margin-left: 20px;
+  }
+
+  #container h1, #container h3{
+    margin-left: 10%;
+  }
+}
+
+@media only screen and (max-width: 500px){
+   #container h1, #container h3{
+    margin-left: 0px;
+  }
+  #container p{
+    margin-left: 20px;
+  }
+  #navbar{
+    height: 200px;
+  }
+}

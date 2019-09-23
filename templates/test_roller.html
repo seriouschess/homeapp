@@ -1,100 +1,103 @@
-{% extends 'layout.html' %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title> professionalserver.net </title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/test_roller.css') }}">
+  </head>
 
-{% block body %}
-<style type=textboxid>
-  {
-    height:200px;
-    font-size:14pt;
-  }
-</style>
-
-<style type="radio"> {
-margin-right: 20;
-}
-</style>
-
-  <div class="jumbotron text-center">
-    <h1>40k Test Roller</h1>
-
-         <p>Rapidly attack with various weapons against different targets to test their efficiency in the 40k tabletop game. <br />
-           The dice are simulated by pseudorandom number generators.</p> <br> <br>
+  <body>
+    <div id="container">
+      <h1>Professional Server Homepage</h1>
+      <div id="navbar">
+          <a class="navElement" href="/">Home</a>
+          <a class="navElement" href="/poems">Poems</a>
+          <a class="navElement" href="/40k">40kRoller</a>
+          <a class="navElement" href="/asteroids">Asteroids</a>
+          <a class="navElement" href="/highscores">Asteroid Scores</a>
+          <a class="navElement" href="/starcraft">SC Builds</a>
+      </div>
+      <h1>40k Test Roller</h1>
+      <p>Rapidly attack with various weapons against different targets to test their efficiency in the 40k tabletop game. <br />
+             The dice are simulated by pseudorandom number generators.</p>
 
       <form method="post">
-        <fieldset>
-          <legend>Select Attacking weapon</legend>
-            Lasgun<input type="radio" name="attacker"
-          value="Lasgun">
-            Bolter Rifle<input type="radio" name="attacker"
-          value="Bolterrifle" checked>
-            Heavy Bolter<input type="radio" name="attacker"
-          value="Heavybolter">
-            Plasma Cannon (overcharge)<input type="radio" name="attacker"
-          value="Plasmacannon">
-            Auto Cannon<input type="radio" name="attacker"
-          value="Autocannon" checked>
-            Lascannon<input type="radio" name="attacker"
-          value="Lascannon">
-            Hellstrike Missiles<input type="radio" name="attacker"
-          value="Hellstrike">
-            Melta<input type="radio" name="attacker"
-          value="Melta">
-            Vanquisher<input type="radio" name="attacker"
-          value="Vanquisher">
-            Battle Cannon<input type="radio" name="attacker"
-          value="Battlecannon">
-            Demolisher Cannon<input type="radio" name="attacker"
-          value="Demolisher">
-            Baneblade Cannon<input type="radio" name="attacker"
-          value="Banebladecannon">
-        </fieldset>
-        <br> <br> <br>
+          <div class="selectionblock">
+            <p>Select Attacking weapon</p>
+              <label class= "selectionelement">Lasgun
+              <input type="radio" name="attacker" value="Lasgun">
+              </label>
 
-        <fieldset>
-          <legend>Hit roll</legend>
-            2+<input type="radio" name="hiton"
-          value=2 >
-            3+<input type="radio" name="hiton"
-          value=3>
-            4+<input type="radio" name="hiton"
-          value=4 checked>
-            5+<input type="radio" name="hiton"
-          value=5>
-            6+<input type="radio" name="hiton"
-          value=6>
-        </fieldset>
-        <br> <br> <br>
+              <label class="selectionelement">Bolter Rifle<input type="radio" name="attacker"
+              value="Bolterrifle" checked></label>
+              <label class= "selectionelement">Heavy Bolter<input type="radio" name="attacker"
+            value="Heavybolter"></label>
+              <label class= "selectionelement">Plasma Cannon (overcharge)<input type="radio" name="attacker"
+            value="Plasmacannon"></label>
+              <label class= "selectionelement">Auto Cannon<input type="radio" name="attacker"
+            value="Autocannon" checked></label>
+              <label class= "selectionelement">Lascannon<input type="radio" name="attacker"
+            value="Lascannon"></label>
+              <label class= "selectionelement">Hellstrike Missiles<input type="radio" name="attacker"
+            value="Hellstrike"></label>
+              <label class= "selectionelement">Melta<input type="radio" name="attacker"
+            value="Melta"></label>
+              <label class= "selectionelement">Vanquisher<input type="radio" name="attacker"
+            value="Vanquisher"></label>
+              <label class= "selectionelement">Battle Cannon<input type="radio" name="attacker"
+            value="Battlecannon"></label>
+              <label class= "selectionelement">Demolisher Cannon<input type="radio" name="attacker"
+            value="Demolisher"></label>
+              <label class= "selectionelement">Baneblade Cannon<input type="radio" name="attacker"
+            value="Banebladecannon"></label>
+          </div>
 
-        <fieldset>
-          <legend>Select Target</legend>
-          Guardsman<input type="radio" name="target"
-          value="Guardsman">
-          Space Marine<input type="radio" name="target"
-          value="Spacemarine">
-          Plague Marine<input type="radio" name="target"
-          value="Plaguemarine" >
-          Primaris Intercessor<input type="radio" name="target"
-          value="Primarisintercessor">
-          Nob<input type="radio" name="target"
-          value="Nob">
-          Armored Sentinel<input type="radio" name="target"
-          value="Sentinel">
-          Carnifex<input type="radio" name="target"
-          value="Carnifex" checked>
-          Valkyrie<input type="radio" name="target"
-          value="Valkyrie">
-          Fire Prism<input type="radio" name="target"
-          value="Fireprism">
-          Leman Russ<input type="radio" name="target"
-          value="Lemanruss">
-          Baneblade<input type="radio" name="target"
-          value="Baneblade">
-          Knight Castellan<input type="radio" name="target"
-          value="Knight Castellan">
-          Warlord Battle Titan(front)<input type="radio" name="target"
-          value="Warlordbattletitan">
-        </fieldset>
-        <br> <br>
+          <div class="selectionblock" id="hiton">
+            <p>Hit Roll</p>
+              <label id="first" class= "selectionelement">2+<input type="radio" name="hiton"
+            value=2 ></label>
+              <label class= "selectionelement">3+<input type="radio" name="hiton"
+            value=3></label>
+              <label class= "selectionelement">4+<input type="radio" name="hiton"
+            value=4 checked></label>
+              <label class= "selectionelement">5+<input type="radio" name="hiton"
+            value=5></label>
+              <label class= "selectionelement">6+<input type="radio" name="hiton"
+            value=6></label>
+          </div>
 
-        <input type="submit" name="submit" value="Calculate">
+          <div class="selectionblock">
+            <p>Select Target</p>
+            <label class= "selectionelement">Guardsman<input type="radio" name="target"
+            value="Guardsman"></label>
+            <label class= "selectionelement">Space Marine<input type="radio" name="target"
+            value="Spacemarine"></label>
+            <label class= "selectionelement">Plague Marine<input type="radio" name="target"
+            value="Plaguemarine" ></label>
+            <label class= "selectionelement">Primaris Intercessor<input type="radio" name="target"
+            value="Primarisintercessor"></label>
+            <label class= "selectionelement">Nob<input type="radio" name="target"
+            value="Nob"></label>
+            <label class= "selectionelement">Armored Sentinel<input type="radio" name="target"
+            value="Sentinel"></label>
+            <label class= "selectionelement">Carnifex<input type="radio" name="target"
+            value="Carnifex" checked></label>
+            <label class= "selectionelement">Valkyrie<input type="radio" name="target"
+            value="Valkyrie"></label>
+            <label class= "selectionelement">Fire Prism<input type="radio" name="target"
+            value="Fireprism"></label>
+            <label class= "selectionelement">Leman Russ<input type="radio" name="target"
+            value="Lemanruss"></label>
+            <label class= "selectionelement">Baneblade<input type="radio" name="target"
+            value="Baneblade"></label>
+            <label class= "selectionelement">Knight Castellan<input type="radio" name="target"
+            value="Knight Castellan"></label>
+            <label class= "selectionelement">Warlord Battle Titan(front)<input type="radio" name="target"
+            value="Warlordbattletitan"></label>
+          </div>
+          <input class="calculate" type="submit" name="submit" value="Calculate">
+      </div>
+  </body>
+</html>
+
       </form>
-{% endblock %}
