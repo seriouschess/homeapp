@@ -21,6 +21,10 @@ def create_tables():
 def home():
     return render_template('home.html')
 
+@app.route('/about')
+def portfolio_display():
+    return render_template('portfolio.html')
+
 @app.route('/jquery')
 def jquery():
     path = r"/var/www/html/homeapp/jquery"

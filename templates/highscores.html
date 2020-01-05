@@ -8,14 +8,15 @@
   <body>
     <div id="container">
             <h1>High Scores for Asteroids</h1>
-      <div id="navbar">
-          <a class="navElement" href="/">Home</a>
-          <a class="navElement" href="/poems">Poems</a>
-          <a class="navElement" href="/40k">40kRoller</a>
-          <a class="navElement" href="/asteroids">Asteroids</a>
-          <a class="navElement" href="/highscores">Asteroid Scores</a>
-          <a class="navElement" href="/starcraft">SC Builds</a>
-      </div>
+          <div id="navbar">
+              <a class="navElement" href="/">Home</a>
+              <a class="navElement" href="/about">Portfolio</a>
+              <a class="navElement" href="/asteroids">Asteroids</a>
+              <a class="navElement" href="/highscores">Asteroid Scores</a>
+              <a class="navElement" href="/poems">Poems</a>
+              <!-- <a class="navElement" href="/40k">40kRoller</a>
+              <a class="navElement" href="/starcraft">SC Builds</a> -->
+          </div>
          {% for score in score_list %}
           <p>{{score["initials"]}} got a score of {{score["value"]}}</p>
           {% endfor %}

@@ -1,0 +1,175 @@
+*{
+  margin: 0px;
+  box-sizing: border-box;
+  vertical-align: top;
+  font-family: sans-serif;
+}
+
+
+
+.title{
+  background-color: #d68847;
+  display: block;
+  text-align: center;
+}
+
+.container{
+  background-color: #513c3c;
+}
+
+.portrait{
+  margin: 5px;
+  height: 350px;
+
+}
+
+.a1{
+  vertical-align: top;
+  background-color: #66ae5a;
+  display: inline-block;
+  font-size: 20;
+  height: 375px;
+}
+
+.ph{
+  color:#e1704a;
+  text-align:center;
+}
+
+.pad{
+  padding: 10px;
+}
+
+.share{
+  display:inline-block;
+}
+
+.w1{
+  background-color: #66ae5a;
+}
+
+.e1{
+  background-color: #66ae5a;
+  margin-bottom: 25px;
+}
+
+.h{
+  background-color: #869b9c;
+}
+
+.h h3{
+  text-align: center;
+  display: block;
+}
+
+.b1{
+  vertical-align: top;
+  background-color: #66ae5a;
+  height: auto;
+  padding-bottom: 5px;
+}
+
+.scene{
+  height:200px;
+  width:100%;
+}
+
+.tb{
+  height:50px;
+  width:50px;
+  display: inline-block;
+  margin: 5px;
+}
+
+.button{
+  margin-left: 40%;
+}
+
+.center{
+  text-align: center;
+}
+
+.footer{
+  height:30px;
+  background-color: #513c3c;
+}
+
+.push{
+  margin-bottom: 10px;
+}
+
+  @media only screen and (max-width: 481px){
+    .b1{
+      height: auto;
+      margin-bottom: 10px;
+    }
+    .a1{
+      width: 100%;
+      margin-bottom: 10px;
+      height:auto;
+      padding-bottom: 5px;
+    }
+    .h p{
+      display: block;
+      margin-left: 10px;
+    }
+    .h a{
+      display: block;
+      margin-left: 10px;
+    }
+
+  }
+
+@media only screen and (min-width: 482px){
+  @media only screen and (max-width: 1023px){
+        .portrait{
+          margin-left: 10%;
+          text-align: center;
+        }
+        .b1{
+          display: inline-block;
+          width: 300px;
+          margin: 5px;
+        }
+
+        .a1{
+          width: 80%;
+          height: auto;
+          margin-left: 10%;
+          padding-bottom: 5px;
+        }
+
+        .h p{
+          display: inline-block;
+          margin-left: 20%;
+        }
+     }
+}
+
+@media only screen and (min-width: 1024px){
+  .portrait{
+    display: inline-block;
+    width: 25%;
+  }
+
+  .b1{
+    display: inline-block;
+    width:30%;
+    margin: 15px;
+  }
+
+  .a1{
+    width: 68%;
+    margin-left: 20px;
+    margin-top: 5px;
+  }
+
+  .h p{
+    display: inline-block;
+    margin-left: 100px;
+  }
+  .h a{
+    display: inline-block;
+    margin-left: 50px;
+  }
+}

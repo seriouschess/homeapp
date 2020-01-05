@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/portfolio.css') }}">
+  <meta charset="UTF-8">
+  <title>Brandon Rehayem's Portfolio</title>
+</head>
+<body>
+   <div class = "title pad">
+      <h1>Brandon Rehayem</h1>
+      <p>Eager to develop software that brings value to your company.</p>
+   </div>
+   <div class = "container">
+    <div class="h center push pad">
+      <h3>Contact information</h3>
+        <a><b>Email:</b> rehayemb@gmail.com</a> <p><b>Phone Number:</b> (630)-209-1861</p> <p><b>Address:</b> 1111 W Madison St. APT #4D Chicago IL 60607</p>
+    </div>
+      <img class = "portrait" src="{{ url_for('static',filename='Portfolio_images/catforhire.png') }}">
+
+     <div class = "a1 push">
+         <h3 class="h center">About</h3>
+            <p class = "a3 pad push">I decided to learn about coding and web technologies. I started by researching python and making API calls, then began making the APIs themselves.
+            Later, I was able to build and deploy a website hosted on a UNIX based Amazon Web Services instance.
+            Though being self taught was a benificial experience, I wanted to be able to certify myself as a web developer and talk about code with others.
+            That's when I decided to enroll in CodingDojo's bootcamp.
+            I graduated from the program, learning how to build websites using 3 different full stacks: Django, ASP.NET Core, and MEAN.</p>
+
+            <h3 class="center">I have experience in working with the following technologies:</h3>
+            <div class="center push">
+              <!-- "{{ url_for('static',filename='styles/mysql.png') }}" -->
+              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/mysql.png') }}">
+              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/sqlite.png') }}">
+              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/mongodb.png') }}">
+              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/c-sharp.png') }}">
+              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/django.png') }}">
+              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/nodejs.png') }}">
+              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/expressjs.png') }}">
+              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/jQuery.png') }}">
+              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/angular.png') }}">
+              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/bootstrap.png') }}">
+              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/HTML.png') }}">
+              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/CSS.png') }}">
+              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/javaScript.png') }}">
+              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/python.png') }}">
+            </div>
+            <br>
+          <h4 class="center"><a href="http://www.professionalserver.net/">Personal Website</a> | <a href="https://github.com/seriouschess">Personal Github</a> </h4>
+     </div>
+
+     <h2 class="ph"> Projects Created </h2>
+     <div class="b1">
+       <h3 class="h center">Psychological Analytics</h3>
+       <img class = "scene" src="{{ url_for('static',filename='Portfolio_images/psychana.png') }}">
+       <p class="pad">A web application that gives surveys asking personality questions while collecting data on how the users take the survey using javascript events.
+        The information is then plotted on graphs so correlations between categories can be assessed.</p>
+       <h3 class="h center">Technologies Used</h3>
+       <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/sqlite.png') }}">
+       <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/python.png') }}">
+       <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/django.png') }}">
+       <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/bootstrap.png') }}">
+       <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/HTML.png') }}">
+       <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/CSS.png') }}">
+       <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/javascript.png') }}">
+       <p class="center">See the code on github <a href="https://github.com/seriouschess/psycological_analytics">here</a></p>
+     </div>
+     <div class="b1">
+       <h3 class="h center">Hostility Skirmish</h3>
+       <img class = "scene" src="{{ url_for('static',filename='Portfolio_images/hostilityskirmish.png') }}">
+       <p class="pad">A multiplayer role playing style game that involves two client side scripts communicating with a shared database. Made with ASP dot net core in C#.
+        This project was made in collaboration with two other developers.</p>
+       <h3 class="h center">Technologies Used</h3>
+       <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/mysql.png') }}">
+       <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/c-sharp.png') }}">
+       <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/jQuery.png') }}">
+       <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/HTML.png') }}">
+       <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/CSS.png') }}">
+       <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/javascript.png') }}">
+          <p class="center">See the code on github <a href="https://github.com/Vacuda/Hostility_Skirmish">here</a></p>
+     </div>
+     <div class="b1">
+       <h3 class="h center">Modern Cave People</h3>
+       <img class = "scene" src="{{ url_for('static',filename='Portfolio_images/moderncavepeople.png') }}">
+       <p class="pad">A CRUD application which allows users to create and edit images, then display them using HTML canvas. Drawing tools were created in the project's code.</p>
+       <h3 class="h center">Technologies Used</h3>
+       <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/mongodb.png') }}">
+       <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/expressjs.png') }}">
+       <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/nodejs.png') }}">
+       <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/angular.png') }}">
+       <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/bootstrap.png') }}">
+       <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/HTML.png') }}">
+       <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/CSS.png') }}">
+       <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/javaScript.png') }}">
+       <p class="center">See the code on github <a href="https://github.com/seriouschess/ModernCavePeople">here</a></p>
+       <br>
+       <h4 class="center">Deployed on AWS: <button onclick="window.location.href = 'http://draw.professionalserver.net/';">See The Site</button></h4>
+     </div>
+
+     <h3 class="h center">Education</h3>
+     <div class="e1 pad">
+      <ul>
+        <li><p>Graduate of Coding Dojo's Chicago bootcamp</p></li>
+        <li><p>BS - Teaching of Mathematics, from the University of Illinois at Chicago</p></li>
+      </ul>
+     </div>
+
+     <h3 class="h center">Work History</h3>
+     <div class="w1 pad">
+      <h4>High School Math Teacher - Chicago Public schools 2013 – 2017</h4>
+      <ul>
+       <li><p>Developed and implemented Math education curriculum including: Algebra1, Geometry, Algebra2, Precalculus and AP Calculus.</p></li>
+       <li><p>Managed a classroom with clear directives and learning objectives. Followed up with students, parents, and administration to ensure each adolescent had a plan to succeed in their education.</p></li>
+      </ul>
+     </div>
+     <div class="footer">
+     </div>
+  </div>
+
+</body>
+</html>

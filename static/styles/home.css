@@ -12,10 +12,6 @@
   margin-left: 20px;
 }
 
-#container h1{
-  margin-left: 40%;
-}
-
 #container p{
   margin: 30px;
 }
@@ -42,6 +38,10 @@
   display: inline-block;
 }
 
+.center{
+  text-align: center;
+}
+
 @media only screen and (max-width: 1099px){
   #navbar{
     width: 90%;
@@ -59,10 +59,6 @@
     padding: 0px;
     background-color: silver;
     margin-left: 20px;
-  }
-
-  #container h1{
-    margin-left: 10%;
   }
 }
 
