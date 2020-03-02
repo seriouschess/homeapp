@@ -9,11 +9,11 @@
     <div id="container">
             <h1>High Scores for Asteroids</h1>
           <div id="navbar">
-              <a class="navElement" href="/">Home</a>
-              <a class="navElement" href="/about">Portfolio</a>
-              <a class="navElement" href="/asteroids">Asteroids</a>
-              <a class="navElement" href="/highscores">Asteroid Scores</a>
-              <a class="navElement" href="/poems">Poems</a>
+              <a class="navElement" id="0" href="/">Home</a>
+              <a class="navElement" id="1" href="/about">Portfolio</a>
+              <a class="navElement" id="2" href="/asteroids">Asteroids</a>
+              <a class="navElement" id="3" href="/highscores">Asteroid Scores</a>
+              <a class="navElement" id="4" href="/poems">Poems</a>
               <!-- <a class="navElement" href="/40k">40kRoller</a>
               <a class="navElement" href="/starcraft">SC Builds</a> -->
           </div>
@@ -21,6 +21,7 @@
           <p>{{score["initials"]}} got a score of {{score["value"]}}</p>
           {% endfor %}
       <h3>Will you achieve a score high enough to be on this list?</h3>
+      <script src="{{ url_for('static',filename='js/navfeatures.js') }}"></script>
     </div>
   </body>
 </html>

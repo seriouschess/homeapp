@@ -9,39 +9,44 @@
 
   <body>
     <div id="container">
-      <h1>Professional Server Homepage</h1>
       <div id="navbar">
-          <a class="navElement" href="/">Home</a>
-          <a class="navElement" href="/about">Portfolio</a>
-          <a class="navElement" href="/asteroids">Asteroids</a>
-          <a class="navElement" href="/highscores">Asteroid Scores</a>
-          <a class="navElement" href="/poems">Poems</a>
+          <a class="navElement" id="0" href="/">Home</a>
+          <a class="navElement" id="1" href="/about">Portfolio</a>
+          <a class="navElement" id="2" href="/asteroids">Asteroids</a>
+          <a class="navElement" id="3" href="/highscores">Asteroid Scores</a>
+          <a class="navElement" id="4" href="/poems">Poems</a>
           <!-- <a class="navElement" href="/40k">40kRoller</a>
           <a class="navElement" href="/starcraft">SC Builds</a> -->
       </div>
-          <h1>List of poems and quips</h1>
-             {% for poem in poems %}
-              <p class="list-group-item">{{poem.title}}</p>
-                <p>{{poem.body}}</p>
-              {% endfor %}
-            <p>Type your poem or quip here! Shorter is better as brevity is an artform in itself.</p>
-            <small> (120 chars max) </small>
+        <h1>List of poems and quips</h1>
+        {% for poem in poems %}
+        <p class="poemtitle">{{poem.title}}</p>
+          <h3 class="poem">{{poem.body}}</h3>
+        {% endfor %}
+      <div>
+        <small> (120 chars max) </small>
+        <form method="POST">
+          <textarea class="poeminput" input_type="text" name="text" maxlength="120">Type your poem or quip here! Shorter is better as brevity is an art form in itself.</textarea>
+          <button class="poemsub btn" id="5" type="submit" name="text" value="bar">Enter</button>
+        </form>
+      <div>
 
-            <form method="POST">
-               <textarea class="poeminput" input_type="text" name="text" maxlength="120"></textarea>
-              <button type="submit" name="text" value="bar">Enter</button>
-            </form>
+      <p>You may select a poem to delete if you believe it to be terrible.</p>
+      <p>Can you be trusted with such an ability?</p>
 
-            <p>You may select a poem to delete if you believe it to be terrible. Can you be trusted with such an ability?</p>
 
-            <form method="POST">
-                <p>Select Poem for Deletion (if you really want to)</p>
-                {% for poem in poems %}
-                Poem Number {{poem.id}}<input type="radio" name="poemid"
-              value={{poem.id}}>
-                 {% endfor %}
-              <input class="button" type="submit" name="poemid" value="Delete Poem" method="DELETE">
-            </form>
+      <form method="POST">
+          <p>Select Poem for Deletion (if you really want to):</p>
+            {% for poem in poems %}
+            <div class="deletechoice">Poem Number {{poem.id}}<input class="deletechoicebutton" type="radio" name="poemid"
+            value={{poem.id}}></div>
+            {% endfor %}
+        <input class="button" id="6" type="submit" name="poemid" value="Delete Poem" method="DELETE">
+      </form>
     </div>
+
+    <script src="{{ url_for('static',filename='js/navfeatures.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/poemfeatures.js') }}"></script>
+    
   </body>
 </html>

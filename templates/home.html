@@ -4,31 +4,61 @@
     <meta charset="utf-8">
     <title> professionalserver.net </title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/home.css') }}">
+    <link rel="image" type="png" href="{{url_for('static', filename='homepage_images/home_background.png')}}">
   </head>
 
   <body>
-    <div id="container">
-      <h1 class="center">Professional Server Homepage</h1>
-      <div id="navbar">
-          <a class="navElement" href="/">Home</a>
-          <a class="navElement" href="/about">Portfolio</a>
-          <a class="navElement" href="/asteroids">Asteroids</a>
-          <a class="navElement" href="/highscores">Asteroid Scores</a>
-          <a class="navElement" href="/poems">Poems</a>
-          <!-- <a class="navElement" href="/40k">40kRoller</a>
-          <a class="navElement" href="/starcraft">SC Builds</a> -->
+    <!-- most convieniently done this way because of how flask's templating engine works with file pathing -->
+    <style type="text/css"> 
+      .overlayimg{
+        margin: auto;
+        margin-top: 50px;
+        width: 1230px;
+        height: 100%;
+        background-image: url("{{url_for('static', filename='homepage_images/home_background.png')}}");
+        background-size: cover;
+        background-repeat: repeat-y;
+        padding: 10px;
+      }
+
+      @media only screen and (max-width: 1099px){
+        .overlayimg{
+          margin-top: 10px;
+          width: 100%;
+        }
+      }
+    </style>
+          
+    <div class="overlayimg">
+      <div id="container">
+        <h1 class="center">Professional Server Homepage</h1>
+
+
+        <div id="navbar">
+            <a class="navElement" id="0" href="/">Home</a>
+            <a class="navElement" id="1" href="/about">Portfolio</a>
+            <a class="navElement" id="2" href="/asteroids">Asteroids</a>
+            <a class="navElement" id="3" href="/highscores">Asteroid Scores</a>
+            <a class="navElement" id="4" href="/poems">Poems</a>
+            <!-- <a class="navElement" href="/40k">40kRoller</a>
+            <a class="navElement" href="/starcraft">SC Builds</a> -->
+        </div>
+        
+        <div class="content">
+          <h1 class="center"> Welcome!</h1>
+          <p>This was the first dynamic website made by Brandon Rehayem.
+            It was built with a humble flask architecture and was truly a labor of love.
+            Though I now have experience with using more complex technologies,
+              this site holds a special place for me as a critical benchmark in my understanding of web development.
+          </p>
+          <p class="center">As R. Lee Ermey put it: "There are many like it, but this one is mine."</p>
+          <p>You can navigate the website by clicking the items listed at the top. If you're up to it, why not leave a short poem or try to get a highscore in asteroids?
+          My portfolio is also available. Enjoy your time here.</p>
+        </div>
+
+
       </div>
-      <div class="content">
-        <h1 class="center"> Welcome!</h1>
-        <p>This was the first dynamic website made by Brandon Rehayem.
-           It was built with a humble flask architecture and was truly a labor of love.
-           Though I now have experience with using more complex technologies,
-            this site holds a special place for me as a critical benchmark in my understanding of web development.
-         </p>
-         <p class="center">As R. Lee Ermey put it: "There are many like it, but this one is mine."</p>
-        <p>You can navigate the website by clicking the items listed at the top. If you're up to it, why not leave a short poem or try to get a highscore in asteroids?
-        My portfolio is also available. Enjoy your time here.</p>
-      </div>
+      <script src="{{ url_for('static',filename='js/navfeatures.js') }}"></script>
     </div>
   </body>
 </html>

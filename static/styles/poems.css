@@ -3,21 +3,37 @@
   padding: 0px;
   box-sizing: border-box;
   vertical-align: top;
+  font-family: Cambria;
+}
+
+body{
+  background-color: rgb(189, 219, 177);
+  text-align: center;
 }
 
 #container{
   width: 1200px;
   padding: 10px;
-  background-color: silver;
-  margin-left: 20px;
+  background-color: rgb(205, 209, 143);
+  margin: auto;
+  margin-top: 60px;
+}
+
+#container h1, div, input{
+  text-align:center;
+}
+
+#container div{
+  margin-top: 50px;
 }
 
 #container h1{
-  margin-left: 40%;
+  margin-bottom: 20px;
 }
 
 #container p{
-  margin: 30px;
+  margin-top:40px;
+  margin-bottom: 20px;
 }
 
 #navbar{
@@ -26,7 +42,7 @@
   margin-bottom: 10px;
   margin-top: 10px;
   height: 80px;
-  background-color: rgb(100,100,200);
+  background-color: rgb(160, 233, 126);
   padding: 20px;
 }
 
@@ -42,23 +58,76 @@
   display: inline-block;
 }
 
-#container p, #container small, #container .poeminput{
-  text-align: center;
+
+.poemtitle{
+  background-color: rgba(235, 251, 3, 0.1);
+  border-radius: 2px;
 }
 
+.poem{
+  background-color: rgba(143, 230, 3, 0.2);
+  padding: px;
+  border: 2px solid rgba(31, 139, 107, 0.2);
+  border-radius: 2px;
+  font-size: 14pt;
+}
 .poeminput{
   font-size:14pt;
   height:150px;
   width:450px;
+  background-color: rgb(180, 216, 157);
+  font-style: Sans-serif;
+}
+
+.poeminput *{
+  vertical-align: left;
 }
 
 .button{
   display: block;
   width: 100px;
   height: 30px;
-  background-color: rgb(230,100,100);
-  border: 4px solid black;
+  background-color: rgb(141, 235, 98);
+  border: 4px solid rgb(171, 219, 199);
   margin-top: 20px;
+  margin-left: 40%;
+}
+
+.select{
+  color: rgb(227, 228, 170);
+  background: rgb(138, 163, 127);
+}
+
+.poemsub{
+  border: 4px solid grey;
+  background-color: pink;
+}
+
+.selectsub{
+  background-color: rgb(233, 121, 205);
+}
+
+.deletechoice{
+  display:inline-block;
+  margin-right: 8px;
+  background-color: rgba(205, 243, 161, 0.2);
+  border-radius: 2px;
+}
+
+.deletechoicebutton{
+  display:inline-block;
+  margin-left: 2px;
+}
+
+.selectdelete{
+  background-color:red;
+}
+
+.btn{
+  width:100px;
+  height:70px;
+  border-radius:5px;
+  vertical-align:top;
 }
 
 @media only screen and (max-width: 1099px){
@@ -76,8 +145,7 @@
   #container{
     width: 90%;
     padding: 0px;
-    background-color: silver;
-    margin-left: 20px;
+    margin-top: 20px;
   }
 
   #container h1{
@@ -88,6 +156,9 @@
 @media only screen and (max-width: 500px){
   #navbar{
     height: 200px;
+  }
+  #container{
+    margin-top: 10px;
   }
 
   .poeminput{

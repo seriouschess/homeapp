@@ -21,6 +21,9 @@
 #rightcontent a{
   margin-bottom: 10px;
 }
+body{
+  background-color:rgb(7, 0, 42);
+}
 
 #navbar{
   width: 1100px;
@@ -28,7 +31,7 @@
   margin-bottom: 10px;
   margin-top: 10px;
   height: 80px;
-  background-color: rgb(100,100,200);
+  background-color: rgb(35, 35, 78);
   padding: 20px;
 }
 
@@ -38,10 +41,15 @@
   margin-left: 50px;
   text-decoration: none;
   color: white;
-  background-color: rgb(150, 150, 250);
+  background-color: rgb(54, 54, 195);
   padding: 5px;
   border-radius: 5px;
   display: inline-block;
+}
+
+.select{
+  color: rgb(178, 180, 178);
+  background: rgb(19, 7, 77);
 }
 
 @media only screen and (max-width: 1099px){

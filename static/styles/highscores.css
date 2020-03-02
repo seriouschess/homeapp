@@ -6,6 +6,11 @@
   color: white;
 }
 
+body{
+  background-color: rgb(0,0,0);
+  text-align:center;
+}
+
 #container{
   width: 1200px;
   padding: 10px;
@@ -61,6 +66,11 @@
 }
 #container h3{
   margin-left: 400px;
+}
+
+.select{
+  color: blue;
+  background: black;
 }
 
 @media only screen and (max-width: 1099px){
