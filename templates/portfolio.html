@@ -11,43 +11,22 @@
       <p>Eager to develop software that brings value to your company.</p>
    </div>
    <div class = "container">
-    <div class="h center push pad">
-      <h3>Contact information</h3>
-        <a><b>Email:</b> rehayemb@gmail.com</a> <p><b>Phone Number:</b> (630)-209-1861</p> <p><b>Currently in: </b> Chicago IL 60607</p>
-    </div>
-      <img class = "portrait" src="{{ url_for('static',filename='Portfolio_images/catforhire.png') }}">
 
-     <div class = "a1 push">
-         <h3 class="h center">About</h3>
-            <p class = "a3 pad push">I decided to learn about coding and web technologies. I started by researching python and making API calls, then began making the APIs themselves.
-            Later, I was able to build and deploy a website hosted on a UNIX based Amazon Web Services instance.
-            Though being self taught was a benificial experience, I wanted to be able to certify myself as a web developer and talk about code with others.
-            That's when I decided to enroll in CodingDojo's bootcamp.
-            I graduated from the program, learning how to build websites using 3 different full stacks: Django, ASP.NET Core, and MEAN.</p>
+   <h3 class="h center">Most Recent Project - SiteLeaves</h3>
+   <div class="e1 pad">
+     <h4>Now deployed on <a href="http://www.siteleaves.com">www.siteleaves.com</a></h4>
+     <p>A web application where users are able to log in as admins and build their own website using in app tools. No tech skills are needed on the part of the user. 
+       Though originally implemented to allow small companies to maintain their own website over time without a software team,
+      the codebase can be used to allow content creators easier access to sitebuilding. </p><br>
+    <ul>
+      <li><p>Tech: ASP.NET Core API with Angular Frontend and MySQL database</p></li>
+      <li><p>Intended to be a 'one and done' sale to customers. Complete ownership and ability to maintain the site rests with them.</p></li>
+      <li><p>Built with modularity and scalability in mind.</p></li>
+    </ul><br>
+    <p>Github repository: <a href="http://www.github.com/seriouschess/dynamify">Located Here</a></p>
+   </div>
 
-            <h3 class="center">I have experience in working with the following technologies:</h3>
-            <div class="center push">
-              <!-- "{{ url_for('static',filename='styles/mysql.png') }}" -->
-              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/mysql.png') }}">
-              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/sqlite.png') }}">
-              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/mongodb.png') }}">
-              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/c-sharp.png') }}">
-              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/django.png') }}">
-              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/nodejs.png') }}">
-              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/expressjs.png') }}">
-              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/jQuery.png') }}">
-              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/angular.png') }}">
-              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/bootstrap.png') }}">
-              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/HTML.png') }}">
-              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/CSS.png') }}">
-              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/JavaScript.png') }}">
-              <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/python.png') }}">
-            </div>
-            <br>
-          <h4 class="center"><a href="http://www.professionalserver.net/">Personal Website</a> | <a href="https://github.com/seriouschess">Personal Github</a> </h4>
-     </div>
-
-     <h2 class="ph"> Projects Created </h2>
+   <h2 class="ph"> Other Projects Created </h2>
      <div class="b1">
        <h3 class="h center">Psychological Analytics</h3>
        <img class = "scene" src="{{ url_for('static',filename='Portfolio_images/psychana.png') }}">
@@ -94,23 +73,49 @@
        <br>
        <h4 class="center">Deployed on AWS: <button onclick="window.location.href = 'http://draw.professionalserver.net/';">See The Site</button></h4>
      </div>
+      
+      <img class = "portrait" src="{{ url_for('static',filename='Portfolio_images/catforhire.png') }}">
 
-     <h3 class="h center">Current Project - Dynamify</h3>
-     <div class="e1 pad">
-       <p>A web application where users are able to log in as admins and build their own website using in app tools. No tech skills are needed on the part of the user. 
-         Though originally implemented to allow small companies to maintain their own website over time without a software team,
-        the codebase can be used to allow content creators easier access to sitebuilding. </p><br>
-      <ul>
-        <li><p>Tech: ASP.NET Core API with Angular Frontend and MySQL database</p></li>
-        <li><p>Intended to be a 'one and done' sale to customers. Complete ownership and ability to maintain the site rests with them.</p></li>
-        <li><p>Built with modularity and scalability in mind.</p></li>
-      </ul><br>
-      <p>Currently a github repository: <a href="http://www.github.com/seriouschess/dynamify">Located Here</a></p>
-     </div>
-     
+      <div class = "a1 push">
+        <h3 class="h center">About</h3>
+        <p class = "a3 pad push">I decided to learn about coding and web technologies. I started by researching python and making API calls, then began making the APIs themselves.
+        Later, I was able to build and deploy a website hosted on a UNIX based Amazon Web Services instance.
+        Though being self taught was a benificial experience, I wanted to be able to certify myself as a web developer and talk about code with others.
+        That's when I decided to enroll in CodingDojo's bootcamp.
+        I graduated from the program, learning how to build websites using 3 different full stacks: Django, ASP.NET Core, and MEAN.</p>
+    
+        <h3 class="center">I have experience in working with the following technologies:</h3>
+        <div class="center push">
+          <!-- "{{ url_for('static',filename='styles/mysql.png') }}" -->
+          <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/mysql.png') }}">
+          <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/sqlite.png') }}">
+          <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/mongodb.png') }}">
+          <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/c-sharp.png') }}">
+          <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/django.png') }}">
+          <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/nodejs.png') }}">
+          <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/expressjs.png') }}">
+          <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/jQuery.png') }}">
+          <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/angular.png') }}">
+          <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/bootstrap.png') }}">
+          <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/HTML.png') }}">
+          <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/CSS.png') }}">
+          <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/JavaScript.png') }}">
+          <img class = "tb" src="{{ url_for('static',filename='Portfolio_images/python.png') }}">
+        </div>
+        <br>
+      <h4 class="center"><a href="http://www.professionalserver.net/">Personal Website</a> | <a href="https://github.com/seriouschess">Personal Github</a> </h4>
+ </div>
+
+  <div class="h push pad">
+     <h3>Contact information</h3>
+        <a><b>Email:</b> rehayemb@gmail.com</a> <p><b>Phone Number:</b> (630)-209-1861</p> <p><b>Currently in: </b> Chicago IL 60607</p>
+    </div>
+
+
      <div class="footer">
      </div>
   </div>
+</div>
 
 </body>
 </html>
