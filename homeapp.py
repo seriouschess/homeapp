@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, send_from_directory, jsonify
+from flask import Flask, render_template, request, redirect, send_from_directory, jsonify
 from poem_model import Poem_data
 from highscore_model import Highscore_data
 #from fortyk.KnightKiller import KnightKiller **works on windows but not linux**
@@ -23,7 +23,8 @@ def home():
 
 @app.route('/about')
 def portfolio_display():
-    return render_template('portfolio.html')
+    return redirect("http://portfolio.professionalserver.net", code=302)
+    #return render_template('portfolio.html')
 
 @app.route('/jquery')
 def jquery():
